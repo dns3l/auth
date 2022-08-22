@@ -1,0 +1,147 @@
+# The base path of Dex and the external name of the OpenID Connect service.
+# This is the canonical URL that all clients MUST use to refer to Dex. If a
+# path is provided, Dex's HTTP service will listen at a non-root URL.
+issuer: {{DEX_URL}}
+
+storage:
+  type: memory
+
+  # type: sqlite3
+  # config:
+  #   file: /var/dex/dex.db
+
+  # type: mysql
+  # config:
+  #   host: 127.0.0.1
+  #   port: 3306
+  #   database: dex
+  #   user: mysql
+  #   password: mysql
+  #   ssl:
+  #     mode: "false"
+
+web:
+  http: 0.0.0.0:5556
+  allowedOrigins: ['*']
+
+grpc:
+  addr: 0.0.0.0:5557
+
+telemetry:
+  http: 0.0.0.0:5558
+
+# Dex UI configuration
+frontend:
+  issuer: DNS3L
+  theme: light
+  extra:
+    helpURL: {{HELP_URL}}
+    clientURL: {{DNS3L_URL}}
+
+oauth2:
+  # https://openid.net/specs/openid-connect-core-1_0.html#Authentication
+  responseTypes: ["code", "token", "id_token"]
+  skipApprovalScreen: true
+  alwaysShowLoginScreen: false
+  # Note: Prod SHOULD NOT provide mock and local
+  # passwordConnector: # local or ldap or mock
+  passwordConnector: {{#ldap}}ldap{{/ldap}}{{^ldap}}mock-passwd{{/ldap}}
+
+staticClients:
+- id: dns3l-app
+  # Web based usage with Authorization Code Grant
+  #   https://tools.ietf.org/html/rfc6749#section-4.1
+  redirectURIs:
+  - {{DNS3L_URL}}
+  - {{DNS3L_URL}}/
+  - {{DNS3L_URL}}/login
+  - {{DNS3L_URL}}/callback
+  name: 'DNS3L App'
+  public: true
+- id: dns3l-cli
+  # CLI/Console usage with Resource Owner Password Credentials Grant
+  # https://tools.ietf.org/html/rfc6749#section-4.3
+  secret: {{DNS3L_CLI_SECRET}}
+  name: 'DNS3L CLI'
+
+{{^production}}
+# Note: Prod SHOULD NOT provide mock and local
+enablePasswordDB: true
+staticPasswords:
+- name: {{DNS3L_USERNAME}}
+  email: {{DNS3L_USERMAIL}}
+  username: {{DNS3L_USER}}
+  userID: {{DNS3L_USER_UUID}}
+  # echo "foobar" | htpasswd -n -B -C 10 -i certbot
+  hash: {{DNS3L_PASS_HASH}}
+{{/production}}
+
+connectors:
+{{#production}}{{^ldap}}
+- type: mockPassword
+  id: mock-passwd
+  name: "Dex Mock..."
+  config:
+    username: {{DNS3L_USER}}
+    password: {{DNS3L_PASS}}
+{{/ldap}}{{/production}}
+{{^production}}
+- type: mockCallback
+  id: mock-noauth
+  name: "Dex Mock"
+- type: mockPassword
+  id: mock-passwd
+  name: "Dex Mock..."
+  config:
+    username: {{DNS3L_USER}}
+    password: {{DNS3L_PASS}}
+{{/production}}
+{{#ldap}}
+- type: ldap
+  id: {{LDAP_CONNECTOR_ID}}
+  name: {{LDAP_CONNECTOR_NAME}}
+  config:
+    # Host and optional port of the LDAP server in the form "host:port".
+    # If the port is not supplied, it will be guessed based on "insecureNoSSL",
+    # and "startTLS" flags. 389 for insecure or StartTLS connections, 636
+    # otherwise.
+    host: {{LDAP_CONNECTOR_HOST}}
+    insecureSkipVerify: {{LDAP_TLS_VERIFY}}
+    startTLS: {{LDAP_STARTTLS}}
+    bindDN: {{LDAP_BindDN}}
+    bindPW: {{LDAP_BindPW}}
+    usernamePrompt: {{LDAP_CONNECTOR_PROMPT}}
+    userSearch:
+      # BaseDN to start the search from. It will translate to the query
+      # "(&(objectClass=person)(uid=<username>))".
+      baseDN: {{LDAP_USER_BASE}}
+      filter: {{LDAP_USER_FILTER}}
+      username: {{LDAP_USER_UID_ATTR}}
+      # "DN" (case sensitive) is a special attribute name. It indicates that
+      # this value should be taken from the entity's DN not an attribute on
+      # the entity.
+      idAttr: {{LDAP_USER_ID_ATTR}}
+      emailAttr: {{LDAP_USER_MAIL_ATTR}}
+      nameAttr: {{LDAP_USER_NAME_ATTR}}
+    groupSearch:
+      # BaseDN to start the search from. It will translate to the query
+      # "(&(objectClass=group)(member=<user uid>))".
+      baseDN: {{LDAP_GROUP_BASE}}
+      filter: {{LDAP_GROUP_FILTER}}
+      # Following list contains field pairs that are used to match a user to a group. It adds an additional
+      # requirement to the filter that an attribute in the group must match the user's attribute value.
+      # A user is a member of a group when their DN matches the value of a "member" attribute on the group entity.
+      userMatchers:
+      - userAttr: {{LDAP_GROUP_USER_ATTR}}
+        groupAttr: {{LDAP_GROUP_MEMBER_ATTR}}
+      nameAttr: {{LDAP_GROUP_NAME_ATTR}}
+{{/ldap}}
+
+expiry:
+  deviceRequests: 5m
+  signingKeys: 3h
+  idTokens: 30m
+  authRequests: 30m
+  refreshTokens:
+    validForIfNotUsed: 1h
+    # absoluteLifetime: 1h
