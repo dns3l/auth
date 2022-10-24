@@ -43,15 +43,14 @@ RUN apk --update upgrade && \
     chown dex:dex ${DEXPATH} && \
     rm -rf /var/cache/apk/*
 
-# Install Mo Mustache
+# Install dockerize
 #
-ENV MO_VERSION="2.2.0"
-RUN curl -fsSL https://github.com/tests-always-included/mo/archive/$MO_VERSION.tar.gz | \
-      tar -xO -zf- mo-$MO_VERSION/mo > /mo && \
-    chmod a+x /mo
+ENV DCKRZ_VERSION="0.16.3"
+RUN _arch=${_arch/amd64/x86_64} && curl -fsSL https://github.com/powerman/dockerize/releases/download/v$DCKRZ_VERSION/dockerize-${_os}-${_arch}${_variant} > /dckrz && \
+    chmod a+x /dckrz
 
 COPY --chown=dex:dex web/ ${DEXPATH}
-COPY --chown=root:root config.docker.yaml /etc/dex/config.yaml.mustache
+COPY --chown=root:root config.docker.yaml /etc/dex/config.yaml.tmpl
 COPY --chown=root:root docker-entrypoint.sh /entrypoint.sh
 
 USER dex
