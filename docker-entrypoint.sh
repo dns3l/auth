@@ -133,6 +133,7 @@ else
   /dckrz -template /etc/dex/config.yaml.tmpl:${DEXPATH}/config.yaml
 fi
 
+
 if [[ `basename ${1}` == "dex" ]]; then # prod
     exec "$@" </dev/null #>/dev/null 2>&1
 else # dev
