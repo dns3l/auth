@@ -44,3 +44,5 @@
 [2]: https://dexidp.io/docs/connectors/ldap/
 
 If `ENVIRONMENT` is `production` and `LDAP_BindDN`, `LDAP_BindPW` are set the LDAP connector is configured only.
+
+Mount a custom dex config to `/etc/dex.conf.yml` if environment based template seems not sufficient.
