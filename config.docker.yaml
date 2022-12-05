@@ -48,7 +48,7 @@ oauth2:
   alwaysShowLoginScreen: false
   # Note: Prod SHOULD NOT provide mock and local
   # passwordConnector: # local or ldap or mock
-  passwordConnector: {{if eq .Env.ldap "true"}}ldap{{else}}mock-passwd{{end}}
+  passwordConnector: {{if eq .Env.ldap "true"}}{{.Env.LDAP_CONNECTOR_ID}}{{else}}mock-passwd{{end}}
 
 staticClients:
 - id: dns3l-app
