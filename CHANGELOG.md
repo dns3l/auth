@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/dns3l/auth/compare/v1.0.1...v1.0.2) (2022-12-06)
+
+
+### Bug Fixes
+
+* issue [#13](https://github.com/dns3l/auth/issues/13) ([#14](https://github.com/dns3l/auth/issues/14)) ([ba6d6a3](https://github.com/dns3l/auth/commit/ba6d6a34acd1ec672f1be42b2b14ebe312fc3318))
+
 ## [1.0.1](https://github.com/dns3l/auth/compare/v1.0.0...v1.0.1) (2022-11-17)
 
 
