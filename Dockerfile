@@ -1,4 +1,4 @@
-FROM dexidp/dex:v2.33.0
+FROM dexidp/dex:v2.35.3
 
 LABEL org.opencontainers.image.title="dns3l auth"
 LABEL org.opencontainers.image.description="An OIDC provider for DNS3L"
