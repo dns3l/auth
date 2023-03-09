@@ -122,7 +122,6 @@ echo Generate selfsigned cert/key pair
 openssl req -x509 -batch -newkey rsa:4096 -sha256 -days 90 -nodes \
             -keyout ${DEXPATH}/tls.key -out ${DEXPATH}/tls.crt \
             -subj "/CN=dex" \
-            -addext "basicConstraints=CA:false" \
             -addext "keyUsage=critical,digitalSignature,keyAgreement" \
             -addext "extendedKeyUsage=serverAuth" \
             -addext "subjectAltName=DNS:localhost,IP:127.0.0.1" 2>/dev/null
