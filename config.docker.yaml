@@ -25,7 +25,7 @@ web:
   https: 0.0.0.0:5554
   tlsCert: {{.Env.DEXPATH}}/tls.crt
   tlsKey: {{.Env.DEXPATH}}/tls.key
-  allowedOrigins: ['*']
+  allowedOrigins: ['*'] # .Env.DNS3L_FQDN
 
 grpc:
   addr: 0.0.0.0:5557
@@ -71,6 +71,15 @@ staticClients:
   #   https://tools.ietf.org/html/rfc6749#section-4.3
   secret: {{.Env.DNS3L_API_SECRET}}
   name: 'DNS3L API'
+- id: dns3ld
+  # dns3ld can only validate against a single client ID actually...
+  #  https://github.com/dns3l/dns3l-core/issues/59
+  secret: {{.Env.DNS3L_DAEMON_SECRET}}
+  name: 'DNS3L daemon validator'
+  trustedPeers:
+  - dns3l-app # new scope: audience:server:client_id:dns3ld
+  - dns3l-api # new scope: audience:server:client_id:dns3ld
+  - dns3l-cli # new scope: audience:server:client_id:dns3ld
 
 {{if eq .Env.production "false" -}}
 # Note: Prod SHOULD NOT provide mock and local
