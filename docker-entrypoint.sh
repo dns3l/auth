@@ -45,12 +45,38 @@ function random_token() {
   tr -cd '[:alnum:]' </dev/urandom | fold -w32 | head -n1
 }
 
+# inspired by https://www.rfc-editor.org/rfc/rfc3986#appendix-B
+# //URL prefix required. Not for IPv6 ([2001:db8::7]) addresses.
+readonly URI_REGEX='^(([^:/?#]+):)?(//((([^:/?#]+)@)?([^:/?#]+)(:([0-9]+))?))?(/([^?#]*))?(\?([^#]*))?(#(.*))?'
+protFromURL () {
+    [[ "$@" =~ $URI_REGEX ]] && echo "${BASH_REMATCH[2],,}"
+}
+hostFromURL () {
+    [[ "$@" =~ $URI_REGEX ]] && echo "${BASH_REMATCH[7],,}"
+}
+portFromURL () {
+    if [[ "$@" =~ $URI_REGEX ]]; then
+      if [[ -z "${BASH_REMATCH[9]}" ]]; then
+        case "${BASH_REMATCH[2],,}" in
+          # some default ports...
+          http)  echo "80" ;;
+          https) echo "443" ;;
+          ldap)  echo "389" ;;
+          ldaps) echo "636" ;;
+        esac
+      else
+        echo "${BASH_REMATCH[9]}"
+      fi
+    fi
+}
+
 SERVICE_TIMEOUT=${SERVICE_TIMEOUT:-300s} # wait for dependencies
 
 echo Running: "$@"
 
 export DEX_URL=${DEX_URL:-"http://localhost:5556/auth"}
 export DNS3L_URL=${DNS3L_URL:-"http://localhost:3000"}
+export DNS3L_FQDN=`hostFromURL ${DNS3L_URL}`
 export HELP_URL=${HELP_URL:-"https://github.com/dns3l/dns3l"}
 
 export LDAP_CONNECTOR_ID=${LDAP_CONNECTOR_ID:-"ldap"}
@@ -110,6 +136,8 @@ P=$(random_token)
 export DNS3L_CLI_SECRET=${DNS3L_CLI_SECRET:-$P}
 P=$(random_token)
 export DNS3L_API_SECRET=${DNS3L_API_SECRET:-$P}
+P=$(random_token)
+export DNS3L_DAEMON_SECRET=${DNS3L_DAEMON_SECRET:-$P}
 
 # Avoid destroying bootstrapping by simple start/stop
 if [[ ! -e ${DEXPATH}/.bootstrapped ]]; then
