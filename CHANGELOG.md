@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/dns3l/auth/compare/v1.0.3...v1.0.4) (2023-03-16)
+
+
+### Bug Fixes
+
+* Bump dex and add new client ID for dns3ld ([#23](https://github.com/dns3l/auth/issues/23)) ([0c28c04](https://github.com/dns3l/auth/commit/0c28c0499457ab782ee14a3d6f4fc61b0cc14718))
+
 ## [1.0.3](https://github.com/dns3l/auth/compare/v1.0.2...v1.0.3) (2023-03-09)
 
 
