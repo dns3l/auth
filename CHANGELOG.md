@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/dns3l/auth/compare/v1.0.4...v1.0.5) (2023-03-21)
+
+
+### Bug Fixes
+
+* Remove beta badge ([992a74e](https://github.com/dns3l/auth/commit/992a74ec79a2c22882c06433e165e6686a96492f))
+
 ## [1.0.4](https://github.com/dns3l/auth/compare/v1.0.3...v1.0.4) (2023-03-16)
 
 
