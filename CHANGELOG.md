@@ -1,3 +1,11 @@
+## [1.0.7](https://github.com/dns3l/auth/compare/v1.0.6...v1.0.7) (2025-08-13)
+
+
+### Bug Fixes
+
+* **docker:** bump dex version, dockerize ([#32](https://github.com/dns3l/auth/issues/32)) ([115264a](https://github.com/dns3l/auth/commit/115264a5984c916bde0b6d05960acd1487b40ac5))
+* **docker:** bump dex version, dockerize ([#32](https://github.com/dns3l/auth/issues/32)) ([5cf8450](https://github.com/dns3l/auth/commit/5cf8450b08fe1fd3964876ccdb3a1dc6a3188ec6))
+
 ## [1.0.6](https://github.com/dns3l/auth/compare/v1.0.5...v1.0.6) (2025-08-13)
 
 version bumps
