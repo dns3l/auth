@@ -60,3 +60,4 @@ EXPOSE 5556
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["dex", "serve", "/home/dex/config.yaml"]
+
