@@ -1,3 +1,7 @@
+## [1.0.6](https://github.com/dns3l/auth/compare/v1.0.5...v1.0.6) (2025-08-13)
+
+version bumps
+
 ## [1.0.5](https://github.com/dns3l/auth/compare/v1.0.4...v1.0.5) (2023-03-21)
 
 
