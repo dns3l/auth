@@ -1,4 +1,4 @@
-FROM dexidp/dex:v2.35.3
+FROM dexidp/dex:v2.43.1
 
 LABEL org.opencontainers.image.title="dns3l auth"
 LABEL org.opencontainers.image.description="An OIDC provider for DNS3L"
@@ -45,8 +45,8 @@ RUN apk --update upgrade && \
 
 # Install dockerize
 #
-ENV DCKRZ_VERSION="0.16.3"
-RUN _arch=${_arch/amd64/x86_64} && curl -fsSL https://github.com/powerman/dockerize/releases/download/v$DCKRZ_VERSION/dockerize-${_os}-${_arch}${_variant} > /dckrz && \
+ENV DCKRZ_VERSION="0.23.1"
+RUN curl -fsSL https://github.com/powerman/dockerize/releases/download/v$DCKRZ_VERSION/dockerize-v${DCKRZ_VERSION}-${_os}-${_arch}${_variant} > /dckrz && \
     chmod a+x /dckrz
 
 COPY --chown=dex:dex web/ ${DEXPATH}
