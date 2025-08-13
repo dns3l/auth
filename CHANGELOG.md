@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/dns3l/auth/compare/v1.0.7...v1.0.8) (2025-08-13)
+
+
+### Bug Fixes
+
+* added missing static web files ([#34](https://github.com/dns3l/auth/issues/34)) ([c51e962](https://github.com/dns3l/auth/commit/c51e962aaf525890e307a924e1e7bc0cbbb52dee))
+
 ## [1.0.7](https://github.com/dns3l/auth/compare/v1.0.6...v1.0.7) (2025-08-13)
 
 

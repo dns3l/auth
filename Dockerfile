@@ -2,9 +2,9 @@ FROM dexidp/dex:v2.43.1
 
 LABEL org.opencontainers.image.title="dns3l auth"
 LABEL org.opencontainers.image.description="An OIDC provider for DNS3L"
-LABEL org.opencontainers.image.version=1.0.7
+LABEL org.opencontainers.image.version=1.0.8
 
-ENV VERSION=1.0.7
+ENV VERSION=1.0.8
 
 ENV PAGER=less
 
