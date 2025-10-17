@@ -1271,9 +1271,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dns3lingress@workspace:.":
+"dns3lauth@workspace:.":
   version: 0.0.0-use.local
-  resolution: "dns3lingress@workspace:."
+  resolution: "dns3lauth@workspace:."
   dependencies:
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/exec": "npm:^7.1.0"
