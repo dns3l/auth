@@ -71,6 +71,9 @@ staticClients:
   #   https://tools.ietf.org/html/rfc6749#section-4.3
   secret: {{.Env.DNS3L_API_SECRET}}
   name: 'DNS3L API'
+- id: dns3l-api-pub
+  name: 'DNS3L API Public'
+  public: true
 - id: dns3ld
   # dns3ld can only validate against a single client ID actually...
   #  https://github.com/dns3l/dns3l-core/issues/59
@@ -79,6 +82,7 @@ staticClients:
   trustedPeers:
   - dns3l-app # new scope: audience:server:client_id:dns3ld
   - dns3l-api # new scope: audience:server:client_id:dns3ld
+  - dns3l-api-pub # new scope: audience:server:client_id:dns3ld
   - dns3l-cli # new scope: audience:server:client_id:dns3ld
 
 {{if eq .Env.production "false" -}}
