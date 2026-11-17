@@ -1,0 +1,350 @@
+/* DNS3L login theme.
+   Everything the Dex pages need, self-hosted: no CDN, no build step.
+   Layout: dark page, two columns - marketing on the left, card on the right.
+   "Skip the marketing" adds .focus to <body> and hides the left column. */
+
+:root {
+  --navy: #12172B;
+  --navy-2: #1E2A47;
+  --ink: #12172B;
+  --ink-soft: #5A6075;
+  --ink-faint: #8A90A6;
+  --line: #E2E5EE;
+  --blue: #2457C5;
+  --blue-dark: #1A4F8A;
+  --magenta: #E20074;
+  --magenta-light: #E20074;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 56px;
+  background:
+    radial-gradient(50% 45% at 50% 0%, rgba(36, 87, 197, .38) 0%, rgba(36, 87, 197, 0) 100%),
+    radial-gradient(40% 35% at 95% 100%, rgba(226, 0, 116, .16) 0%, rgba(226, 0, 116, 0) 100%),
+    linear-gradient(180deg, #1E2A47 0%, #12172B 100%);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+a { color: var(--blue); }
+a:hover { color: var(--blue-dark); }
+
+.shell {
+  width: 100%;
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
+  align-items: center;
+  gap: 72px;
+}
+
+/* ---------- left column ---------- */
+
+.intro { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+
+.wordmark {
+  display: inline-flex; align-items: flex-start; gap: 3px;
+  text-decoration: none; color: #fff;
+  font-weight: 800; font-size: 30px; line-height: 1; letter-spacing: -.04em;
+}
+.wordmark sup {
+  color: var(--magenta-light); font-size: 15px; font-weight: 800;
+  margin-top: -2px; top: 0;
+}
+
+.intro h2 {
+  margin: 14px 0 0;
+  font-size: clamp(34px, 3.4vw, 44px); line-height: 1.08;
+  letter-spacing: -.03em; font-weight: 800; color: #fff;
+}
+.intro p { margin: 0; max-width: 480px; font-size: 15.5px; line-height: 1.6; color: #AEB6CF; }
+.intro p strong { color: #E6EAF5; font-weight: 600; }
+
+.preview {
+  box-sizing: border-box; margin: 6px 0 0; width: 100%; max-width: 480px;
+  padding: 10px 10px 8px; border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.03) 100%);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,.6);
+}
+
+.shot {
+  position: relative; display: block; border-radius: 12px; overflow: hidden;
+  background: #fff; text-decoration: none;
+  box-shadow: 0 24px 48px -24px rgba(0,0,0,.7);
+}
+.shot-bar {
+  display: flex; align-items: center; gap: 6px; height: 26px;
+  padding: 0 10px; background: #EEF0F5;
+}
+.shot-bar i { width: 8px; height: 8px; border-radius: 999px; display: block; }
+.shot-bar i:nth-child(1) { background: #F2B8C6; }
+.shot-bar i:nth-child(2) { background: #F3D9A4; }
+.shot-bar i:nth-child(3) { background: #BFE3C9; }
+.shot-url {
+  flex: 1; margin: 0 24px; height: 16px; border-radius: 6px; background: #fff;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9.5px; line-height: 16px; color: var(--ink-faint); text-align: center;
+}
+.shot-frames { position: relative; aspect-ratio: 16 / 10; background: #F6F7FB; }
+.shot-frames img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top left; opacity: 0;
+  animation: slide 16s infinite both;
+}
+.shot-frames img:nth-child(1) { opacity: 1; animation: slide-first 16s 0s infinite both; }
+.shot-frames img:nth-child(2) { animation-delay: 4s; }
+.shot-frames img:nth-child(3) { animation-delay: 8s; }
+.shot-frames img:nth-child(4) { animation-delay: 12s; }
+
+.play {
+  position: absolute; right: 12px; bottom: 12px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px 8px 10px; border-radius: 999px;
+  background: var(--magenta); color: #fff; font-size: 13px; font-weight: 700;
+  box-shadow: 0 10px 22px -8px rgba(226,0,116,.7);
+}
+.play i {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 999px;
+  background: rgba(255,255,255,.22); font-size: 9px; font-style: normal;
+}
+
+.caption {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 6px 12px;
+}
+.caption .steps { position: relative; flex: 1; height: 20px; font-size: 13px; font-weight: 600; color: #DCE7FF; }
+.caption .steps span {
+  position: absolute; left: 0; top: 0; white-space: nowrap; opacity: 0;
+  animation: slide 16s infinite both;
+}
+.caption .steps span:nth-child(1) { opacity: 1; animation: slide-first 16s 0s infinite both; }
+.caption .steps span:nth-child(2) { animation-delay: 4s; }
+.caption .steps span:nth-child(3) { animation-delay: 8s; }
+.caption .steps span:nth-child(4) { animation-delay: 12s; }
+
+.dots { display: flex; gap: 5px; }
+.dots i {
+  position: relative; width: 18px; height: 4px; border-radius: 999px;
+  background: rgba(255,255,255,.18); overflow: hidden; display: block;
+}
+.dots i::after {
+  content: ''; position: absolute; inset: 0; background: var(--magenta-light);
+  opacity: 0; animation: slide 16s infinite both;
+}
+.dots i:nth-child(1)::after { opacity: 1; animation: slide-first 16s 0s infinite both; }
+.dots i:nth-child(2)::after { animation-delay: 4s; }
+.dots i:nth-child(3)::after { animation-delay: 8s; }
+.dots i:nth-child(4)::after { animation-delay: 12s; }
+
+@keyframes slide-first { 0% {opacity:1} 22% {opacity:1} 25% {opacity:0} 97% {opacity:0} 100% {opacity:1} }
+@keyframes slide { 0% {opacity:0} 3% {opacity:1} 25% {opacity:1} 28% {opacity:0} 100% {opacity:0} }
+
+.ctas { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,.1); }
+.cta {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 12px 8px 6px; color: #DCE7FF; text-decoration: none;
+  transition: background .18s ease;
+}
+.cta + .cta { padding: 14px 6px 8px 14px; border-left: 1px solid rgba(255,255,255,.1); color: #FFE0EF; }
+.cta:hover { background: rgba(255,255,255,.05); color: #DCE7FF; }
+.cta[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+.cta i {
+  flex: none; display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px; font-style: normal; font-size: 16px;
+  background: rgba(91,134,219,.22); border: 1px solid rgba(157,188,245,.3);
+}
+.cta + .cta i { background: rgba(226,0,116,.24); border-color: rgba(255,92,174,.38); }
+.cta b { font-size: 14px; font-weight: 700; display: block; }
+.cta small { font-size: 12px; color: #9DBCF5; }
+.cta + .cta small { color: #FF9FCF; }
+.cta svg { flex: none; opacity: .7; transition: transform .18s ease, opacity .18s ease; }
+.cta:hover svg { transform: translateX(3px); opacity: 1; }
+
+/* ---------- right column ---------- */
+
+.panel { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 14px; }
+
+/* The card hugs its content. It used to stretch to the height of the left
+   column, which left the short connector chooser floating in a tall empty
+   box. */
+.card {
+  box-sizing: border-box; flex: 0 0 auto; width: 100%; max-width: 440px;
+  background: #fff; border: 1px solid rgba(255,255,255,.6); border-radius: 20px;
+  padding: 32px 32px 22px;
+  display: flex; flex-direction: column; gap: 18px;
+  box-shadow: 0 30px 60px -24px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04);
+}
+.card h1 { margin: 0; font-size: 26px; letter-spacing: -.03em; font-weight: 700; }
+.card .lede { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+
+form { display: flex; flex-direction: column; gap: 14px; }
+label.field { display: flex; flex-direction: column; gap: 7px; }
+label.field > span:first-child {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 13.5px; font-weight: 600; color: #2E3348;
+}
+label.field a { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; text-decoration: none; }
+
+.input {
+  display: flex; align-items: center; min-height: 46px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 12px; background: #FAFBFD;
+  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.input.with-button { padding: 0 6px 0 14px; }
+.input:hover { border-color: #C3C9D8; }
+.input:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(36,87,197,.12); background: #fff; }
+.input input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 15px; color: var(--ink);
+}
+.reveal {
+  width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent;
+  color: #6B7085; display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+
+.btn {
+  display: flex; align-items: center; justify-content: center; min-height: 48px;
+  margin-top: 4px; border: 0; border-radius: 12px;
+  background: linear-gradient(180deg, #EC1A86 0%, #E20074 100%);
+  color: #fff; font: inherit; font-size: 15.5px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 8px 18px -10px rgba(226,0,116,.5);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(226,0,116,.55); filter: brightness(1.04); }
+.btn:active { transform: none; }
+.btn.ghost {
+  background: #fff; color: var(--ink-soft); border: 1px solid var(--line);
+  box-shadow: none; min-height: 40px; font-size: 14px;
+}
+
+.sep { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--ink-faint); }
+.sep i { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(226,229,238,0), #E2E5EE); display: block; }
+.sep i:last-child { background: linear-gradient(90deg, #E2E5EE, rgba(226,229,238,0)); }
+.sep b {
+  padding: 1px 8px; border-radius: 999px; background: #EEF0F5;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #6B7085;
+}
+.sep + .providers { margin-top: 14px; }
+.sep { margin-top: 4px; }
+.sep b { padding: 2px 10px; }
+
+.providers { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.providers button {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 40px; padding: 0 12px; border: 1px solid #ECEEF3; border-radius: 12px;
+  background: #F7F8FA; font: inherit; font-size: 14px; font-weight: 600;
+  color: #A7ABBA; cursor: not-allowed;
+}
+
+.hint { margin: 0; text-align: center; font-size: 13px; color: #6B7085; }
+.hint a { font-weight: 600; text-decoration: none; }
+
+.alert {
+  display: flex; gap: 10px; padding: 12px 14px; border-radius: 12px;
+  background: #FDEEF1; border: 1px solid #F1C7CF; color: #A3122B; font-size: 13.5px;
+}
+.alert b { display: block; font-size: 14px; }
+
+/* ---------- connector chooser (login.html) ---------- *
+ * Only rendered when more than one connector is configured; with a single
+ * one Dex goes straight to that connector's own page. Reuses .btn.ghost so
+ * the chooser cannot drift away from the password form visually.           */
+
+.conns { display: flex; flex-direction: column; gap: 10px; }
+
+.conn {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 50px; padding: 0 16px;
+  font-size: 14.5px; font-weight: 700; color: var(--ink);
+  text-decoration: none;
+  transition: background .18s ease, border-color .18s ease, transform .15s ease;
+}
+.conn:hover {
+  background: #FAFBFD; border-color: #C3C9D8; color: var(--ink);
+  transform: translateY(-1px);
+}
+.conn small {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+
+/* ---------- "Skip the marketing" switch ---------- *
+ * Driven by the checkbox itself, so the row can never disagree with the
+ * stored preference. Both cat faces and both captions sit in the markup;
+ * exactly one of each is displayed.                                        */
+
+.skip {
+  display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 2px;
+  padding: 12px 14px; border: 1px solid #ECEEF3; border-radius: 14px;
+  background: #F7F8FA; font: inherit; text-align: left; cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.skip-input { position: absolute; opacity: 0; pointer-events: none; }
+
+.skip-cat { flex: none; width: 40px; height: 40px; }
+.skip .cat {
+  display: block; width: 40px; height: 40px; border-radius: 999px;
+  object-fit: cover; box-shadow: 0 0 0 2px #fff, 0 0 0 3px #E9E5FB;
+}
+.skip .cat-on { display: none; }
+
+.skip-text { flex: 1; min-width: 0; }
+.skip b { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.skip small { display: block; font-size: 12px; color: #6B7085; }
+.skip .cap-on { display: none; }
+
+.skip .track {
+  flex: none; position: relative; width: 42px; height: 24px; border-radius: 999px;
+  background: #C9CDD9; transition: background .2s ease;
+}
+.skip .track::after {
+  content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px;
+  border-radius: 999px; background: #fff; box-shadow: 0 2px 6px rgba(18,23,43,.3);
+  transition: left .2s ease;
+}
+
+.skip-input:checked ~ .skip-cat .cat-off { display: none; }
+.skip-input:checked ~ .skip-cat .cat-on { display: block; }
+.skip-input:checked ~ .skip-text .cap-off { display: none; }
+.skip-input:checked ~ .skip-text .cap-on { display: block; }
+.skip-input:checked ~ .track { background: var(--magenta); }
+.skip-input:checked ~ .track::after { left: 21px; }
+
+/* The row itself cannot be reached with a sibling selector, so :has() does
+   it. Browsers without :has() simply keep the neutral background. */
+.skip:has(.skip-input:checked) { background: #FFF0F7; border-color: #F8CDE3; }
+
+.skip-input:focus-visible ~ .track { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* ---------- focus mode: card only ---------- *
+ * Only hides the left column. The switch's own appearance comes from
+ * :checked above - two places writing the same thing is how a switch ends
+ * up disagreeing with itself.                                              */
+
+body.focus .intro { display: none; }
+body.focus .shell { max-width: 440px; grid-template-columns: minmax(0, 440px); }
+body.focus .panel { align-items: center; }
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+@media (max-width: 980px) {
+  body { padding: 24px 16px; }
+  .shell { gap: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot-frames img, .caption .steps span, .dots i::after { animation: none; }
+  .shot-frames img:nth-child(1), .caption .steps span:nth-child(1), .dots i:nth-child(1)::after { opacity: 1; }
+  .btn, .cta, .cta svg, .conn, .skip, .skip .track, .skip .track::after { transition: none; }
+}
