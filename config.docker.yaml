@@ -36,10 +36,15 @@ telemetry:
 # Dex UI configuration
 frontend:
   issuer: DNS3L
-  theme: light
+  theme: dns3l
   extra:
     helpURL: {{.Env.HELP_URL}}
     clientURL: {{.Env.DNS3L_URL}}
+    # Entry point for the "Try demo" button. Leave the variable unset in an
+    # environment that should not offer a demo - the button then disappears.
+    demoURL: {{.Env.DEMO_URL}}
+    # Dex itself cannot reset passwords; this points at the AD self-service.
+    passwordResetURL: {{.Env.PASSWORD_RESET_URL}}
 
 oauth2:
   # https://openid.net/specs/openid-connect-core-1_0.html#Authentication

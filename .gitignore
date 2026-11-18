@@ -111,3 +111,4 @@ dist
 .devcontainer/*.env
 .devcontainer/.env
 .devcontainer/env
+dev.compose.yml
